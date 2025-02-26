@@ -1,9 +1,12 @@
 # This function is used in developing elevation profile based on Digital Elevation Model data. 
 
+# load the necessary libraries. 
 library(terra)
   library(sf)
   library(dplyr)
-  
+  # install them if they aren't installed previously in your machine. 
+
+# the following function is still raw, and was not tested properly, therefore, it might be needed to modify as per necessicity. 
 
 
 elevation_profile <- function(
