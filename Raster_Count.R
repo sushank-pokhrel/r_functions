@@ -5,14 +5,13 @@
 
 # libraries needed
 library(raster)
-library(dplyr)
+library(dplyr) # tidyverse library can be loaded. 
 library(rlang)  # Load rlang for dynamic column names
+library(sf) # to work with shape files. 
+# install libraries if not installed previously. 
 
 
 # Frequency count of rasters for each shapefile parameters ---------
-
-# frequency count script.
-
 
 frequency_count <- function(raster_file, shape_file, sf_column_name, raster_column_name){
 
@@ -36,7 +35,7 @@ frequency_count <- function(raster_file, shape_file, sf_column_name, raster_colu
     masked <- mask(cropped, evaluation_row)
     
     # Convert the masked raster to a data frame and count pixels
-    df <- as.data.frame(masked, xy = TRUE) %>% na.omit()
+    df <- as.data.frame(masked, na.rm = T)
     
     # Use the dynamic raster column name
     raster_column <- df[[raster_column_name]]
@@ -67,10 +66,10 @@ frequency_count <- function(raster_file, shape_file, sf_column_name, raster_colu
 # Running the functions
 
 frequency_count(
-  shape_file = ,#shape file name
-  sf_column_name = ,# name of the column of a shape file for which data is to be calculated
-  raster_file = ,# name of the raster file
-  raster_column_name = #the column names in raster file, (other than x y coordinate)
+  shape_file = ,          # shape file name
+  sf_column_name = ,      # name of the column of a shape file for which data is to be calculated
+  raster_file = ,         # name of the raster file
+  raster_column_name =    # the column names in raster file, (other than x y coordinate)
 )
 
 # you should assign a variable name before running the function.
@@ -90,7 +89,7 @@ frequency_count <- function(raster_file, shape_file, sf_column_name, raster_colu
     cropped <- crop(raster_file, evaluation_row)
     masked <- mask(cropped, evaluation_row)
     
-    df <- as.data.frame(masked, xy = TRUE) %>% na.omit()
+    df <- as.data.frame(masked, na.rm = T)
     
     raster_column <- df[[raster_column_name]]
     
