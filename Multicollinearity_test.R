@@ -19,8 +19,7 @@ library(car) # car package is for correlation calculation.
 # you have to install aforementioned packages if they're not available in your machine. 
 
 multicollinearity_function <- function(data, th) {
-  library(dplyr)
-  
+
   vif_function <- function(data) {
     vif_values <- data.frame(Variable = character(), VIF = numeric())
     for (var in names(data)) {
@@ -57,14 +56,20 @@ multicollinearity_function <- function(data, th) {
     variable_to_remove <- vif_pair$Variable[which.max(vif_pair$VIF)]
     
     data <- data %>% select(-all_of(variable_to_remove))
+    
+    var_names <- names(data)
   }
   
-  return(data)
+  final_vif_values <- vif_function(data)
+  
+  return(final_vif_values)
 }
 
-
 # Example. 
-final_variables <- multicollinearity_function( data = your_data_frame_with_only the predictor_variables, th =  # the_threshold which you wish (e.g. 0.7, or 0.8 (numeric) )
+final_variables <- multicollinearity_function(
+  data = your_data_frame_with_only the predictor_variables,
+  th =  # the_threshold which you wish (e.g. 0.7, or 0.8 (numeric) 
+)
 
 
 
@@ -111,9 +116,8 @@ stepwise_multicollinearity <- function(data, th) {
 }
 
 # example 
-final_variables <- stepwise_multicollinearity(data = the_data_frame_with_only_the_predictor_variables , th = # the threshold limti of VIF you want)
-
-
-
-
+final_variables <- stepwise_multicollinearity(
+  data = the_data_frame_with_only_the_predictor_variables , 
+  th = # the threshold limti of VIF you want
+)
 
